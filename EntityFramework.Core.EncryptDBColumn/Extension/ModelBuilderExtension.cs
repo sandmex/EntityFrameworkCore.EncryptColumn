@@ -28,6 +28,9 @@ namespace EntityFrameworkCore.EncryptColumn.Extension
                         object[] attributes = property.PropertyInfo.GetCustomAttributes(typeof(EncryptColumnAttribute), false);
                         if(attributes.Any())
                             property.SetValueConverter(encryptionConverter);
+                        var annotation = property.GetAnnotations().Where(a => a.Name == "EncryptColumn");
+                        if (annotation.Any())
+                            property.SetValueConverter(encryptionConverter);
                     }
                 }
             }
